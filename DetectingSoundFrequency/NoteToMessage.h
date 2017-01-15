@@ -12,3 +12,4 @@
 - (NSString *) messageForFreq: (Float32) freq power: (Float32) power;
 
 @end
+            
