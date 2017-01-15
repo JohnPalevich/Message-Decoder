@@ -94,7 +94,7 @@
             _messageString = [_messageString stringByAppendingString:decodedLetter];
         }
         else{
-            _messageString = [_messageString stringByAppendingString:@"?"];
+            _messageString = [_messageString stringByAppendingString:_letterString];
         }
         _letterString = @"";
         return _messageString;
