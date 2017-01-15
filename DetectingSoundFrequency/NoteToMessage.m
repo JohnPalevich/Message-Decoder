@@ -14,7 +14,9 @@
     NSString * _noteString;
     NSString * _previousNote;
     BOOL _recordNotes;
+    NSDictionary *_charMap;
 }
+
 -(instancetype) init{
     self = [super init];
     if(self){
@@ -23,6 +25,41 @@
         Float32 A4 = 440;
         _C0 = A4 * powf(2, -4.75);
         _name = @[@"C", @"C#", @"D", @"D#", @"E", @"F", @"F#", @"G", @"G#", @"A", @"A#", @"B"];
+        _charMap = @{
+                     @"cd":@"A",
+                     @"ce":@"B",
+                     @"cf":@"C",
+                     @"cg":@"D",
+                     @"ca":@"E",
+                     @"cb":@"F",
+                     @"dc":@"G",
+                     @"de":@"H",
+                     @"df":@"I",
+                     @"dg":@"J",
+                     @"da":@"K",
+                     @"db":@"L",
+                     @"ec":@"M",
+                     @"ed":@"N",
+                     @"ef":@"O",
+                     @"eg":@"P",
+                     @"ea":@"Q",
+                     @"eb":@"R",
+                     @"fc":@"S",
+                     @"fd":@"T",
+                     @"fe":@"U",
+                     @"fg":@"V",
+                     @"fa":@"W",
+                     @"fb":@"X",
+                     @"gc":@"Y",
+                     @"gd":@"Z",
+                     @"ge":@" ",
+                     @"gf":@".",
+                     @"ga":@",",
+                     @"gb":@"!",
+                     @"ac":@"?",
+                     @"ad":@"*",
+                     };
+
     }
     return self;
 }

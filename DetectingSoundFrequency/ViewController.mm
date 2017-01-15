@@ -200,6 +200,7 @@ void AudioCallback( Float32 * buffer, UInt32 frameSize, void * userData )
     FFTHelperRelease(fftConverter);
 }
 
+
 - (void) updateFreq: (Float32) freq power: (Float32) power{
     HZValueLabel.text = [_noteToMessage messageForFreq: freq power: power];
 }
