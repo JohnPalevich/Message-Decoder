@@ -32,7 +32,7 @@ FFTHelperRef *fftConverter = NULL;
 
 //Accumulator Buffer=====================
 
-const UInt32 accumulatorDataLenght = 131072;  //16384; //32768; 65536; 131072;
+const UInt32 accumulatorDataLenght = 2048; // 131072;  //16384; //32768; 65536; 131072;
 UInt32 accumulatorFillIndex = 0;
 Float32 *dataAccumulator = nil;
 static void initializeAccumulator() {
@@ -107,7 +107,16 @@ static Float32 strongestFrequencyHZ(Float32 *buffer, FFTHelperRef *fftHelper, UI
 
 __weak UILabel *labelToUpdate = nil;
 
+static const Float32 A4 = 440;
+static const Float32 C0 = A4 * powf(2, -4.75);
+NSArray * name = @[@"C", @"C#", @"D", @"D#", @"E", @"F", @"F#", @"G", @"G#", @"A", @"A#", @"B"];
 
+NSString * pitch(Float32 freq){
+    int32_t h = round(12*log2(freq/C0));
+    int32_t octave = h / 12;
+    int32_t n = h % 12;
+    return [NSString stringWithFormat: @"%@%d", name[n] , octave];
+}
 
 #pragma mark MAIN CALLBACK
 void AudioCallback( Float32 * buffer, UInt32 frameSize, void * userData )
@@ -131,10 +140,10 @@ void AudioCallback( Float32 * buffer, UInt32 frameSize, void * userData )
         
         Float32 maxHZValue = 0;
         Float32 maxHZ = strongestFrequencyHZ(dataAccumulator, fftConverter, accumulatorDataLenght, &maxHZValue);
-        
-        NSLog(@" max HZ = %0.3f ", maxHZ);
+        NSString * note = pitch(maxHZ);
+        NSLog(@" max HZ = %d %@", (int) maxHZ, note);
         dispatch_async(dispatch_get_main_queue(), ^{ //update UI only on main thread
-            labelToUpdate.text = [NSString stringWithFormat:@"%0.3f HZ",maxHZ];
+            labelToUpdate.text = [NSString stringWithFormat:@"%d HZ %@",(int) maxHZ, note];
         });
         
         emptyAccumulator(); //empty the accumulator when finished
