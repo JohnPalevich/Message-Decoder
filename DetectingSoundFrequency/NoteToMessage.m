@@ -29,7 +29,7 @@
 - (NSString *) messageForFreq: (Float32) freq power: (Float32) power
 {
     
-    if(power < 1e-6)
+    if(power < 1e-7)
     {
         return _noteString;
     }
