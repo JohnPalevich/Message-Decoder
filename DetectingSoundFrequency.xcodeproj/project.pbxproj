@@ -28,6 +28,7 @@
 		04808C6218C009F500E685F1 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04808C6118C009F500E685F1 /* OpenGLES.framework */; };
 		04808C6818C00D8200E685F1 /* mo_audio.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04808C6518C00D8200E685F1 /* mo_audio.mm */; };
 		04808C6918C00D8200E685F1 /* mo_gfx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 04808C6718C00D8200E685F1 /* mo_gfx.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		04FAE3C21E2C0580006540C7 /* NoteToMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FAE3C11E2C0580006540C7 /* NoteToMessage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,8 @@
 		04808C6518C00D8200E685F1 /* mo_audio.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mo_audio.mm; sourceTree = "<group>"; };
 		04808C6618C00D8200E685F1 /* mo_gfx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mo_gfx.h; sourceTree = "<group>"; };
 		04808C6718C00D8200E685F1 /* mo_gfx.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mo_gfx.mm; sourceTree = "<group>"; };
+		04FAE3C01E2C0580006540C7 /* NoteToMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteToMessage.h; sourceTree = "<group>"; };
+		04FAE3C11E2C0580006540C7 /* NoteToMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteToMessage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +147,8 @@
 				04808C2B18BE868300E685F1 /* Main.storyboard */,
 				04808C2E18BE868300E685F1 /* ViewController.h */,
 				04808C2F18BE868300E685F1 /* ViewController.mm */,
+				04FAE3C01E2C0580006540C7 /* NoteToMessage.h */,
+				04FAE3C11E2C0580006540C7 /* NoteToMessage.m */,
 				04808C4E18BE88E800E685F1 /* FFTHelper.h */,
 				04808C4F18BE88E800E685F1 /* FFTHelper.mm */,
 				04808C3118BE868300E685F1 /* Images.xcassets */,
@@ -295,6 +300,7 @@
 			files = (
 				04808C5018BE88E800E685F1 /* FFTHelper.mm in Sources */,
 				04808C3018BE868300E685F1 /* ViewController.mm in Sources */,
+				04FAE3C21E2C0580006540C7 /* NoteToMessage.m in Sources */,
 				04808C2A18BE868300E685F1 /* AppDelegate.mm in Sources */,
 				04808C6818C00D8200E685F1 /* mo_audio.mm in Sources */,
 				04808C2618BE868300E685F1 /* main.mm in Sources */,

@@ -4,7 +4,7 @@
 
 #import "mo_audio.h" //stuff that helps set up low-level audio
 #import "FFTHelper.h"
-
+#import "NoteToMessage.h"
 
 #define SAMPLE_RATE 44100  //22050 //44100
 #define FRAMESIZE  512
@@ -13,6 +13,10 @@
 #define kOutputBus 0
 #define kInputBus 1
 
+@interface ViewController ()
+-(void) updateFreq: (Float32) freq power: (Float32) power;
+
+@end
 
 
 /// Nyquist Maximum Frequency
@@ -105,18 +109,8 @@ static Float32 strongestFrequencyHZ(Float32 *buffer, FFTHelperRef *fftHelper, UI
 
 
 
-__weak UILabel *labelToUpdate = nil;
+__weak ViewController *viewControllerToUpdate = nil;
 
-static const Float32 A4 = 440;
-static const Float32 C0 = A4 * powf(2, -4.75);
-NSArray * name = @[@"C", @"C#", @"D", @"D#", @"E", @"F", @"F#", @"G", @"G#", @"A", @"A#", @"B"];
-
-NSString * pitch(Float32 freq){
-    int32_t h = round(12*log2(freq/C0));
-    int32_t octave = h / 12;
-    int32_t n = h % 12;
-    return [NSString stringWithFormat: @"%@%d", name[n] , octave];
-}
 
 #pragma mark MAIN CALLBACK
 void AudioCallback( Float32 * buffer, UInt32 frameSize, void * userData )
@@ -139,11 +133,11 @@ void AudioCallback( Float32 * buffer, UInt32 frameSize, void * userData )
         
         
         Float32 maxHZValue = 0;
+        
         Float32 maxHZ = strongestFrequencyHZ(dataAccumulator, fftConverter, accumulatorDataLenght, &maxHZValue);
-        NSString * note = pitch(maxHZ);
-        NSLog(@" max HZ = %d %@", (int) maxHZ, note);
+
         dispatch_async(dispatch_get_main_queue(), ^{ //update UI only on main thread
-            labelToUpdate.text = [NSString stringWithFormat:@"%d HZ %@",(int) maxHZ, note];
+            [viewControllerToUpdate updateFreq: maxHZ power: maxHZValue];
         });
         
         emptyAccumulator(); //empty the accumulator when finished
@@ -163,17 +157,19 @@ void AudioCallback( Float32 * buffer, UInt32 frameSize, void * userData )
 
 
 
-@interface ViewController ()
 
-@end
 
 @implementation ViewController
-
+{
+    NoteToMessage * _noteToMessage;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    labelToUpdate = HZValueLabel;
+    _noteToMessage = [[NoteToMessage alloc] init];
+    
+    viewControllerToUpdate = self;
     
     //initialize stuff
     fftConverter = FFTHelperCreate(accumulatorDataLenght);
@@ -202,6 +198,10 @@ void AudioCallback( Float32 * buffer, UInt32 frameSize, void * userData )
 -(void) dealloc {
     destroyAccumulator();
     FFTHelperRelease(fftConverter);
+}
+
+- (void) updateFreq: (Float32) freq power: (Float32) power{
+    HZValueLabel.text = [_noteToMessage messageForFreq: freq power: power];
 }
 
 @end
