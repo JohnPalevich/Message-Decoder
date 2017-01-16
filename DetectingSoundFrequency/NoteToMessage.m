@@ -16,6 +16,7 @@
     NSString * _previousNote;
     BOOL _recordNotes;
     NSDictionary *_charMap;
+    NSInteger _previousNoteCounter;
 }
 
 -(instancetype) init{
@@ -26,6 +27,7 @@
         _letterString = @"";
         Float32 A4 = 440;
         _C0 = A4 * powf(2, -4.75);
+        _previousNoteCounter = 0;
         _name = @[@"C", @"C#", @"D", @"D#", @"E", @"F", @"F#", @"G", @"G#", @"A", @"A#", @"B"];
         _charMap = @{
                      @"cd":@"A",
@@ -73,11 +75,22 @@
         return _messageString;
     }
     NSString * tempNote = [self pitch:freq];
-    if(_previousNote == tempNote)
+    if(_previousNote != tempNote)
+    {
+
+        _previousNote = tempNote;
+        _previousNoteCounter = 1;
+        return _messageString;
+    }
+    if(_previousNoteCounter == 1)
+    {
+        _previousNoteCounter ++;
+    }
+    else
     {
         return _messageString;
     }
-    _previousNote = tempNote;
+    
     if([tempNote containsString:@"#"] || [tempNote isEqualToString:@"F0"] )
     {
         return _messageString;
