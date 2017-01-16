@@ -102,7 +102,7 @@
     if([tempNote isEqualToString:@"A5"])
     {
         _recordNotes = YES;
-        _messageString = @"";
+        _messageString = [_messageString stringByAppendingString:@"\n"];
         return _messageString;
     }
     if([tempNote isEqualToString:@"B5"])
@@ -125,6 +125,11 @@
     int32_t octave = h / 12;
     int32_t n = h % 12;
     return [NSString stringWithFormat: @"%@%d", _name[n] , octave];
+}
+
+- (void ) clear
+{
+    _messageString = @"";
 }
 
 @end

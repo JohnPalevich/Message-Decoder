@@ -204,5 +204,9 @@ void AudioCallback( Float32 * buffer, UInt32 frameSize, void * userData )
 - (void) updateFreq: (Float32) freq power: (Float32) power{
     HZValueLabel.text = [_noteToMessage messageForFreq: freq power: power];
 }
+- (IBAction)clear:(UIButton *)sender {
+    [_noteToMessage clear];
+    HZValueLabel.text = @"";
+}
 
 @end

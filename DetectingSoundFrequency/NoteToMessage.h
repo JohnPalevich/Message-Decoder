@@ -10,6 +10,7 @@
 
 @interface NoteToMessage : NSObject
 - (NSString *) messageForFreq: (Float32) freq power: (Float32) power;
+-(void) clear;
 
 @end
             
