@@ -36,11 +36,11 @@ FFTHelperRef *fftConverter = NULL;
 
 //Accumulator Buffer=====================
 
-const UInt32 accumulatorDataLenght = 2048; // 131072;  //16384; //32768; 65536; 131072;
+const UInt32 accumulatorDataLength = 2048; // 131072;  //16384; //32768; 65536; 131072;
 UInt32 accumulatorFillIndex = 0;
 Float32 *dataAccumulator = nil;
 static void initializeAccumulator() {
-    dataAccumulator = (Float32*) malloc(sizeof(Float32)*accumulatorDataLenght);
+    dataAccumulator = (Float32*) malloc(sizeof(Float32)*accumulatorDataLength);
     accumulatorFillIndex = 0;
 }
 static void destroyAccumulator() {
@@ -51,27 +51,27 @@ static void destroyAccumulator() {
     accumulatorFillIndex = 0;
 }
 
-static BOOL accumulateFrames(Float32 *frames, UInt32 lenght) { //returned YES if full, NO otherwise.
+static BOOL accumulateFrames(Float32 *frames, UInt32 length) { //returned YES if full, NO otherwise.
     //    float zero = 0.0;
-    //    vDSP_vsmul(frames, 1, &zero, frames, 1, lenght);
+    //    vDSP_vsmul(frames, 1, &zero, frames, 1, length);
     
-    if (accumulatorFillIndex>=accumulatorDataLenght) { return YES; } else {
-        memmove(dataAccumulator+accumulatorFillIndex, frames, sizeof(Float32)*lenght);
-        accumulatorFillIndex = accumulatorFillIndex+lenght;
-        if (accumulatorFillIndex>=accumulatorDataLenght) { return YES; }
+    if (accumulatorFillIndex>=accumulatorDataLength) { return YES; } else {
+        memmove(dataAccumulator+accumulatorFillIndex, frames, sizeof(Float32)*length);
+        accumulatorFillIndex = accumulatorFillIndex+length;
+        if (accumulatorFillIndex>=accumulatorDataLength) { return YES; }
     }
     return NO;
 }
 
 static void emptyAccumulator() {
     accumulatorFillIndex = 0;
-    memset(dataAccumulator, 0, sizeof(Float32)*accumulatorDataLenght);
+    memset(dataAccumulator, 0, sizeof(Float32)*accumulatorDataLength);
 }
 //=======================================
 
 
 //==========================Window Buffer
-const UInt32 windowLength = accumulatorDataLenght;
+const UInt32 windowLength = accumulatorDataLength;
 Float32 *windowBuffer= NULL;
 //=======================================
 
@@ -128,13 +128,13 @@ void AudioCallback( Float32 * buffer, UInt32 frameSize, void * userData )
         //windowing the time domain data before FFT (using Blackman Window)
         if (windowBuffer==NULL) { windowBuffer = (Float32*) malloc(sizeof(Float32)*windowLength); }
         vDSP_blkman_window(windowBuffer, windowLength, 0);
-        vDSP_vmul(dataAccumulator, 1, windowBuffer, 1, dataAccumulator, 1, accumulatorDataLenght);
+        vDSP_vmul(dataAccumulator, 1, windowBuffer, 1, dataAccumulator, 1, accumulatorDataLength);
         //=========================================
         
         
         Float32 maxHZValue = 0;
         
-        Float32 maxHZ = strongestFrequencyHZ(dataAccumulator, fftConverter, accumulatorDataLenght, &maxHZValue);
+        Float32 maxHZ = strongestFrequencyHZ(dataAccumulator, fftConverter, accumulatorDataLength, &maxHZValue);
 
         dispatch_async(dispatch_get_main_queue(), ^{ //update UI only on main thread
             [viewControllerToUpdate updateFreq: maxHZ power: maxHZValue];
@@ -172,7 +172,7 @@ void AudioCallback( Float32 * buffer, UInt32 frameSize, void * userData )
     viewControllerToUpdate = self;
     
     //initialize stuff
-    fftConverter = FFTHelperCreate(accumulatorDataLenght);
+    fftConverter = FFTHelperCreate(accumulatorDataLength);
     initializeAccumulator();
     [self initMomuAudio];
 

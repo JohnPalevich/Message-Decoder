@@ -69,7 +69,6 @@
 }
 - (NSString *) messageForFreq: (Float32) freq power: (Float32) power
 {
-    
     if(power < 1e-7)
     {
         return _messageString;
@@ -95,11 +94,11 @@
     {
         return _messageString;
     }
-    if(![tempNote containsString:@"4"] && ![tempNote containsString:@"5"])
+    if(![tempNote containsString:@"6"] && ![tempNote containsString:@"7"])
     {
         return _messageString;
     }
-    if([tempNote isEqualToString:@"G5"])
+    if([tempNote isEqualToString:@"G7"])
     {
         NSString * decodedLetter = _charMap[_letterString];
         if(decodedLetter)
@@ -107,18 +106,18 @@
             _messageString = [_messageString stringByAppendingString:decodedLetter];
         }
         else{
-            _messageString = [_messageString stringByAppendingString:_letterString];
+            _messageString = [_messageString stringByAppendingString:@"_"];
         }
         _letterString = @"";
         return _messageString;
     }
-    if([tempNote isEqualToString:@"A5"])
+    if([tempNote isEqualToString:@"A7"])
     {
         _recordNotes = YES;
         _messageString = [_messageString stringByAppendingString:@"\n"];
         return _messageString;
     }
-    if([tempNote isEqualToString:@"B5"])
+    if([tempNote isEqualToString:@"B7"])
     {
         _recordNotes = NO;
     }
@@ -134,6 +133,10 @@
 
 
 - (NSString *) pitch: (Float32) freq{
+    if(freq < _C0)
+    {
+        return @"C0";
+    }
     int32_t h = round(12*log2(freq/_C0));
     int32_t octave = h / 12;
     int32_t n = h % 12;
