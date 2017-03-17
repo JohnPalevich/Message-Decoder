@@ -73,8 +73,9 @@
     {
         return _messageString;
     }
-    NSString * tempNote = [self pitch:freq];
-    if(_previousNote != tempNote)
+   NSString * tempNote = [self pitch:freq];
+   NSLog(@"freq %g %@", freq, tempNote);
+   if(_previousNote != tempNote)
     {
 
         _previousNote = tempNote;
@@ -89,17 +90,17 @@
     {
         return _messageString;
     }
-    
     if([tempNote containsString:@"#"] || [tempNote isEqualToString:@"F0"] )
     {
         return _messageString;
     }
-    if(![tempNote containsString:@"6"] && ![tempNote containsString:@"7"])
+    if(![tempNote containsString:@"7"] && ![tempNote containsString:@"8"])
     {
         return _messageString;
     }
-    if([tempNote isEqualToString:@"G7"])
+    if([tempNote isEqualToString:@"G8"])
     {
+       NSLog(@"End Character %@", _letterString);
         NSString * decodedLetter = _charMap[_letterString];
         if(decodedLetter)
         {
@@ -111,14 +112,16 @@
         _letterString = @"";
         return _messageString;
     }
-    if([tempNote isEqualToString:@"A7"])
+    if([tempNote isEqualToString:@"A8"])
     {
+       NSLog(@"Start Message");
         _recordNotes = YES;
         _messageString = [_messageString stringByAppendingString:@"\n"];
         return _messageString;
     }
-    if([tempNote isEqualToString:@"B7"])
+    if([tempNote isEqualToString:@"B8"])
     {
+       NSLog(@"End Message");
         _recordNotes = NO;
     }
     if(!_recordNotes)

@@ -73,7 +73,7 @@
 		04808C6618C00D8200E685F1 /* mo_gfx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mo_gfx.h; sourceTree = "<group>"; };
 		04808C6718C00D8200E685F1 /* mo_gfx.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mo_gfx.mm; sourceTree = "<group>"; };
 		04FAE3C01E2C0580006540C7 /* NoteToMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteToMessage.h; sourceTree = "<group>"; };
-		04FAE3C11E2C0580006540C7 /* NoteToMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteToMessage.m; sourceTree = "<group>"; };
+		04FAE3C11E2C0580006540C7 /* NoteToMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 3; lastKnownFileType = sourcecode.c.objc; path = NoteToMessage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -444,8 +444,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DetectingSoundFrequency/DetectingSoundFrequency-Prefix.pch";
 				INFOPLIST_FILE = "DetectingSoundFrequency/DetectingSoundFrequency-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "public.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -459,8 +461,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DetectingSoundFrequency/DetectingSoundFrequency-Prefix.pch";
 				INFOPLIST_FILE = "DetectingSoundFrequency/DetectingSoundFrequency-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "public.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

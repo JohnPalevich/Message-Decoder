@@ -101,7 +101,9 @@ static Float32 strongestFrequencyHZ(Float32 *buffer, FFTHelperRef *fftHelper, UI
     unsigned long length = frameSize/2.0;
     Float32 max = 0;
     unsigned long maxIndex = 0;
-    max = vectorMaxValueACC32_index(fftData, length, 1, &maxIndex);
+    unsigned long cutOffIndex = length/15; //dont recognize low frequency
+    max = vectorMaxValueACC32_index(fftData + cutOffIndex, length - cutOffIndex, 1, &maxIndex);
+    maxIndex += cutOffIndex;
     if (freqValue!=NULL) { *freqValue = max; }
     Float32 HZ = frequencyHerzValue(maxIndex, length, NyquistMaxFreq);
     return HZ;
